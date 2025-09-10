@@ -1,7 +1,7 @@
 # OpenAI API Key (replace with your actual key)
 OPENAI_API_KEY=
 
-# Google OAuth Credentials
+# Twitter OAuth Credentials
 TWITTER_API_KEY=
 TWITTER_API_KEY_SECRET=
 TWITTER_BEARER_TOKEN=
