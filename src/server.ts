@@ -15,7 +15,7 @@ import { processToolCalls } from "./utils";
 import { tools, executions } from "./tools";
 // import { env } from "cloudflare:workers";
 
-const model = openai("gpt-4o-2024-11-20");
+const model = openai("gpt-5-mini");
 // Cloudflare AI Gateway
 // const openai = createOpenAI({
 //   apiKey: env.OPENAI_API_KEY,
@@ -57,15 +57,29 @@ export class Chat extends AIChatAgent<Env> {
           executions
         });
 
-        // Stream the AI response using GPT-4
+        // Stream the AI response using GPT-5-mini
         const result = streamText({
           model,
-          system: `You are a helpful assistant that can do various tasks... 
+          system: `You are a Twitter AI Agent assistant that helps users manage their Twitter account. You can:
+
+1. **Compose and post tweets** - Help users draft and post tweets to their Twitter account (requires confirmation)
+2. **Retrieve recent tweets** - Fetch and display the user's recent tweets with engagement metrics
+3. **Schedule tasks** - Schedule future actions or reminders
 
 ${unstable_getSchedulePrompt({ date: new Date() })}
 
-If the user asks to schedule a task, use the schedule tool to schedule the task.
+When composing tweets:
+- Keep tweets under 280 characters
+- Make them engaging and well-formatted
+- Always ask for confirmation before posting
+
+When showing recent tweets:
+- Display them in a readable format with engagement metrics
+- Include dates and performance data
+
+Be helpful, concise, and focused on Twitter-related tasks. The user's Twitter handle is @fayazara.
 `,
+          temperature: 1,
           messages: processedMessages,
           tools: allTools,
           onFinish: async (args) => {

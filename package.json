@@ -5,7 +5,7 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"start": "vite dev",
+		"dev": "vite dev",
 		"deploy": "vite build && wrangler deploy",
 		"test": "vitest",
 		"types": "wrangler types",
@@ -55,6 +55,7 @@
 		"react-markdown": "^10.1.0",
 		"remark-gfm": "^4.0.1",
 		"tailwind-merge": "^3.3.1",
+		"tw-animate-css": "^1.3.8",
 		"workers-ai-provider": "^0.7.3",
 		"zod": "^3.25.76"
 	}

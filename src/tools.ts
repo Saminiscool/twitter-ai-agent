@@ -1,5 +1,5 @@
 /**
- * Tool definitions for the AI chat agent
+ * Tool definitions for the Twitter AI chat agent
  * Tools can either require human confirmation or execute automatically
  */
 import { tool } from "ai";
@@ -8,29 +8,56 @@ import { z } from "zod";
 import type { Chat } from "./server";
 import { getCurrentAgent } from "agents";
 import { unstable_scheduleSchema } from "agents/schedule";
+import { getUserTweets as fetchUserTweets, postTweet } from "./twitter-api";
 
 /**
- * Weather information tool that requires human confirmation
+ * Tweet composition tool that requires human confirmation
  * When invoked, this will present a confirmation dialog to the user
  * The actual implementation is in the executions object below
  */
-const getWeatherInformation = tool({
-  description: "show the weather in a given city to the user",
-  parameters: z.object({ city: z.string() })
+const composeTweet = tool({
+  description: "compose and post a tweet to Twitter",
+  parameters: z.object({ 
+    content: z.string().max(280, "Tweet content must be 280 characters or less")
+  })
   // Omitting execute function makes this tool require human confirmation
 });
 
 /**
- * Local time tool that executes automatically
+ * Get user tweets tool that executes automatically
  * Since it includes an execute function, it will run without user confirmation
- * This is suitable for low-risk operations that don't need oversight
+ * This fetches the user's recent tweets
  */
-const getLocalTime = tool({
-  description: "get the local time for a specified location",
-  parameters: z.object({ location: z.string() }),
-  execute: async ({ location }) => {
-    console.log(`Getting local time for ${location}`);
-    return "10am";
+const getUserTweets = tool({
+  description: "get the user's recent tweets from their timeline",
+  parameters: z.object({ 
+    count: z.number().min(1).max(10).default(5).describe("Number of tweets to retrieve (1-10)")
+  }),
+  execute: async ({ count }) => {
+    console.log(`Getting ${count} recent tweets`);
+    
+    const result = await fetchUserTweets('252099921', count);
+    
+    if (!result.success) {
+      return `Error fetching tweets: ${result.error}`;
+    }
+
+    if (!result.data?.data || result.data.data.length === 0) {
+      return "No recent tweets found.";
+    }
+
+    const tweets = result.data.data.map((tweet: any) => ({
+      id: tweet.id,
+      text: tweet.text,
+      created_at: tweet.created_at,
+      likes: tweet.public_metrics?.like_count || 0,
+      retweets: tweet.public_metrics?.retweet_count || 0,
+      replies: tweet.public_metrics?.reply_count || 0
+    }));
+
+    return `Here are your ${tweets.length} most recent tweets:\n\n${tweets.map((tweet, i) => 
+      `${i + 1}. "${tweet.text}"\n   📅 ${new Date(tweet.created_at).toLocaleDateString()}\n   ❤️ ${tweet.likes} | 🔄 ${tweet.retweets} | 💬 ${tweet.replies}\n`
+    ).join('\n')}`;
   }
 });
 
@@ -114,8 +141,8 @@ const cancelScheduledTask = tool({
  * These will be provided to the AI model to describe available capabilities
  */
 export const tools = {
-  getWeatherInformation,
-  getLocalTime,
+  composeTweet,
+  getUserTweets,
   scheduleTask,
   getScheduledTasks,
   cancelScheduledTask
@@ -128,8 +155,15 @@ export const tools = {
  * NOTE: keys below should match toolsRequiringConfirmation in app.tsx
  */
 export const executions = {
-  getWeatherInformation: async ({ city }: { city: string }) => {
-    console.log(`Getting weather information for ${city}`);
-    return `The weather in ${city} is sunny`;
+  composeTweet: async ({ content }: { content: string }) => {
+    console.log(`Posting tweet: ${content}`);
+    
+    const result = await postTweet(content);
+    
+    if (!result.success) {
+      return `❌ Error posting tweet: ${result.error}`;
+    }
+
+    return `✅ Tweet posted successfully!\n\nTweet ID: ${result.data.data.id}\nContent: "${content}"\n\nYou can view it at: https://twitter.com/fayazara/status/${result.data.data.id}`;
   }
 };

@@ -953,7 +953,7 @@ export class AIAgent extends Agent {
 
     // Process and understand
     const response = await ai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-5-mini",
       messages: [{ role: "user", content: await request.text() }],
     });
 
@@ -1281,7 +1281,7 @@ export default {
     });
 
     const response = await client.chat.completions.create({
-      model: 'gpt-4o-2024-08-06',
+      model: 'gpt-5-mini',
       messages: [
         { role: 'system', content: 'Extract the event information.' },
         { role: 'user', content: 'Alice and Bob are going to a science fair on Friday.' },

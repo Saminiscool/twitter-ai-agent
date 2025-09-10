@@ -1,6 +1,6 @@
 import useTheme from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
-import { Moon, Sun } from "@phosphor-icons/react";
+import { MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 
 const ThemeSelector = () => {
@@ -18,14 +18,14 @@ const ThemeSelector = () => {
       className="flex size-8 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-200/60 dark:hover:bg-neutral-900"
       onClick={() => toggleTheme()}
     >
-      <Moon
-        weight="bold"
+      <MoonIcon
+        weight="duotone"
         className={cn("hidden", {
           "animate-fade block": theme === "dark"
         })}
       />
-      <Sun
-        weight="bold"
+      <SunIcon
+        weight="duotone"
         className={cn("animate-fade block", {
           hidden: theme === "dark"
         })}

@@ -1,21 +1,10 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@source "../node_modules/streamdown/dist/index.js";
 
-/* Markdown Table Styling (Tailwind @apply) */
-.markdown-body table {
-  @apply w-full border-collapse my-4 text-[0.95em];
-}
-.markdown-body th,
-.markdown-body td {
-  @apply border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-left;
-}
-.markdown-body th {
-  @apply bg-neutral-100 dark:bg-neutral-800 font-semibold dark:text-neutral-200;
-}
-.markdown-body tr {
-  @apply dark:text-neutral-300;
-}
-.markdown-body tr:nth-child(even) {
-  @apply bg-neutral-50 dark:bg-neutral-850;
+* {
+  scrollbar-color: var(--ui-bg-accented) transparent;
+  scrollbar-width: thin;
 }
 
 /* Custom variants */
@@ -263,12 +252,15 @@
 /* Database card animation */
 .db-card {
   animation: db-card-animation 3s linear infinite;
-  animation-play-state: paused; /* pause while group is not hovered */
-  stroke-dasharray: 100; /* length of each dash */
+  animation-play-state: paused;
+  /* pause while group is not hovered */
+  stroke-dasharray: 100;
+  /* length of each dash */
 
   &:is(:where(.group):hover *) {
     @media (hover: hover) {
-      animation-play-state: running; /* play while group is hovered */
+      animation-play-state: running;
+      /* play while group is hovered */
     }
   }
 }
@@ -277,9 +269,11 @@
   0% {
     stroke-dashoffset: -200;
   }
+
   50% {
     stroke-dashoffset: 0;
   }
+
   100% {
     stroke-dashoffset: 200;
   }
@@ -308,5 +302,14 @@
 @keyframes refresh {
   to {
     transform: rotate(360deg) scale(0.9);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-[hsl(var(--border))];
+  }
+  body {
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
   }
 }

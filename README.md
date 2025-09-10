@@ -166,7 +166,7 @@ Replace the `@ai-sdk/openai` import and usage with the `workers-ai-provider`:
 
 // Use it when calling the streamText method (or other methods)
 // from the ai-sdk
-- const model = openai("gpt-4o-2024-11-20");
+- const model = openai("gpt-5-mini");
 + const model = workersai("@cf/deepseek-ai/deepseek-r1-distill-qwen-32b")
 ```
 
