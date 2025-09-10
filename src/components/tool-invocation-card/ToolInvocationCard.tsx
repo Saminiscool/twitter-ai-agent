@@ -1,9 +1,44 @@
 import { useState } from "react";
-import { RobotIcon, CaretDownIcon } from "@phosphor-icons/react";
+import {
+  CaretDownIcon,
+  CheckCircleIcon,
+  TwitterLogoIcon,
+  CalendarPlusIcon,
+  ListBulletsIcon,
+  TrashIcon,
+  PencilIcon
+} from "@phosphor-icons/react";
 import { Button } from "@/components/button/Button";
 import { Card } from "@/components/card/Card";
 import { Tooltip } from "@/components/tooltip/Tooltip";
 import { APPROVAL } from "@/shared";
+import { TextShimmer } from "../text-shimmer";
+
+const toolDisplayNames: Record<string, string> = {
+  composeTweet: "Composing and posting tweet",
+  getUserTweets: "Fetching recent tweets",
+  scheduleTask: "Scheduling task",
+  getScheduledTasks: "Getting scheduled tasks",
+  cancelScheduledTask: "Canceling scheduled task"
+};
+
+const toolIcons: Record<string, React.ReactNode> = {
+  composeTweet: (
+    <PencilIcon weight="duotone" size={16} className="text-[#F48120]" />
+  ),
+  getUserTweets: (
+    <TwitterLogoIcon weight="duotone" size={16} className="text-[#F48120]" />
+  ),
+  scheduleTask: (
+    <CalendarPlusIcon weight="duotone" size={16} className="text-[#F48120]" />
+  ),
+  getScheduledTasks: (
+    <ListBulletsIcon weight="duotone" size={16} className="text-[#F48120]" />
+  ),
+  cancelScheduledTask: (
+    <TrashIcon weight="duotone" size={16} className="text-[#F48120]" />
+  )
+};
 
 interface ToolInvocation {
   toolName: string;
@@ -20,7 +55,7 @@ interface ToolInvocationCardProps {
   toolInvocation: ToolInvocation;
   toolCallId: string;
   needsConfirmation: boolean;
-  addToolResult: (args: { toolCallId: string; result: string }) => void;
+  addToolResult: (args: { toolCallId: string; result: any }) => void;
 }
 
 export function ToolInvocationCard({
@@ -33,7 +68,7 @@ export function ToolInvocationCard({
 
   return (
     <Card
-      className={`p-4 my-3 w-full max-w-[500px] rounded-md bg-neutral-100 dark:bg-neutral-900 ${
+      className={`p-4 my-1 w-full max-w-[500px] rounded-lg bg-neutral-200 dark:bg-neutral-900 ${
         needsConfirmation ? "" : "border-[#F48120]/30"
       } overflow-hidden`}
     >
@@ -45,12 +80,30 @@ export function ToolInvocationCard({
         <div
           className={`${needsConfirmation ? "bg-[#F48120]/10" : "bg-[#F48120]/5"} p-1.5 rounded-full flex-shrink-0`}
         >
-          <RobotIcon weight="duotone" size={16} className="text-[#F48120]" />
+          {toolIcons[toolInvocation.toolName] || (
+            <TwitterLogoIcon
+              weight="duotone"
+              size={16}
+              className="text-[#F48120]"
+            />
+          )}
         </div>
         <h4 className="font-medium flex items-center gap-2 flex-1 text-left">
-          {toolInvocation.toolName}
-          {!needsConfirmation && toolInvocation.state === "result" && (
-            <span className="text-xs text-[#F48120]/70">✓ Completed</span>
+          {toolInvocation.state === "result" ? (
+            <span>
+              {toolDisplayNames[toolInvocation.toolName] ||
+                toolInvocation.toolName}
+            </span>
+          ) : (
+            <TextShimmer>
+              {toolDisplayNames[toolInvocation.toolName] ||
+                toolInvocation.toolName}
+            </TextShimmer>
+          )}
+          {toolInvocation.state === "result" && (
+            <div className="text-xs text-green-500 flex items-center gap-1">
+              <CheckCircleIcon weight="duotone" size={16} /> Completed
+            </div>
           )}
         </h4>
         <CaretDownIcon

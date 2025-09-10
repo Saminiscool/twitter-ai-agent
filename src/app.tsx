@@ -12,6 +12,7 @@ import { Toggle } from "@/components/toggle/Toggle";
 import { Textarea } from "@/components/textarea/Textarea";
 import { MemoizedMarkdown } from "@/components/memoized-markdown";
 import { ToolInvocationCard } from "@/components/tool-invocation-card/ToolInvocationCard";
+import { TweetDisplay } from "@/components/tweet-display/TweetDisplay";
 
 // Icon imports
 import {
@@ -234,6 +235,7 @@ export default function Chat() {
                                       🕒
                                     </span>
                                   )}
+                                  
                                   <MemoizedMarkdown
                                     id={`${m.id}-${i}`}
                                     content={part.text.replace(
@@ -255,6 +257,7 @@ export default function Chat() {
                             );
                           }
 
+
                           if (part.type === "tool-invocation") {
                             const toolInvocation = part.toolInvocation;
                             const toolCallId = toolInvocation.toolCallId;
@@ -263,7 +266,34 @@ export default function Chat() {
                                 toolInvocation.toolName as keyof typeof tools
                               );
 
-                            // Skip rendering the card in debug mode
+                            // Handle getUserTweets specially for generative UI
+                            if (toolInvocation.toolName === "getUserTweets" && toolInvocation.state === "result") {
+                              const result = toolInvocation.result;
+                              
+                              return (
+                                // biome-ignore lint/suspicious/noArrayIndexKey: using index is safe here
+                                <div key={`${toolCallId}-${i}`}>
+                                  <Card className="p-3 rounded-md bg-neutral-100 dark:bg-neutral-900 rounded-bl-none border-assistant-border">
+                                    {result?.error ? (
+                                      <div className="text-red-500">Error: {result.error}</div>
+                                    ) : result?.message ? (
+                                      <div>{result.message}</div>
+                                    ) : result?.type === 'tweets' ? (
+                                      <TweetDisplay tweetsData={result} />
+                                    ) : (
+                                      <div>Loading tweets...</div>
+                                    )}
+                                  </Card>
+                                  <p className="text-xs text-muted-foreground mt-1 text-left">
+                                    {formatTime(
+                                      new Date(m.createdAt as unknown as string)
+                                    )}
+                                  </p>
+                                </div>
+                              );
+                            }
+
+                            // Skip rendering the card in debug mode for other tools
                             if (showDebug) return null;
 
                             return (

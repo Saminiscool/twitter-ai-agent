@@ -39,11 +39,11 @@ const getUserTweets = tool({
     const result = await fetchUserTweets('252099921', count);
     
     if (!result.success) {
-      return `Error fetching tweets: ${result.error}`;
+      return { error: result.error };
     }
 
     if (!result.data?.data || result.data.data.length === 0) {
-      return "No recent tweets found.";
+      return { message: "No recent tweets found." };
     }
 
     const tweets = result.data.data.map((tweet: any) => ({
@@ -55,9 +55,21 @@ const getUserTweets = tool({
       replies: tweet.public_metrics?.reply_count || 0
     }));
 
-    return `Here are your ${tweets.length} most recent tweets:\n\n${tweets.map((tweet, i) => 
-      `${i + 1}. "${tweet.text}"\n   📅 ${new Date(tweet.created_at).toLocaleDateString()}\n   ❤️ ${tweet.likes} | 🔄 ${tweet.retweets} | 💬 ${tweet.replies}\n`
-    ).join('\n')}`;
+    // Return structured data for generative UI
+    return {
+      type: 'tweets',
+      count: tweets.length,
+      tweets: tweets.map(tweet => ({
+        id: tweet.id,
+        text: tweet.text,
+        created_at: tweet.created_at,
+        metrics: {
+          likes: tweet.likes,
+          retweets: tweet.retweets,
+          replies: tweet.replies
+        }
+      }))
+    };
   }
 });
 
