@@ -2,6 +2,10 @@
 
 An interactive Twitter AI agent built with Cloudflare Workers, Agents, and OpenAI.
 
+
+https://github.com/user-attachments/assets/2944303f-b569-4222-965c-01836495a679
+
+
 ## Features
 
 - Compose and post tweets
