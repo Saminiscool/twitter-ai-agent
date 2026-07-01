@@ -73,7 +73,6 @@ If you run into any issues or need help, please reach out through the support se
 For additional assistance, consider reaching out on forums related to natural language processing or Twitter API usage.
 
 ## 📞 Contact
-
 For feedback or inquiries, contact the project maintainers through the [GitHub repository](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip). Your input helps improve the application.
 
 Thank you for choosing the twitter-ai-agent! Enjoy your tweeting experience with the power of natural language.
