@@ -10,14 +10,35 @@ import { getCurrentAgent } from "agents";
 import { unstable_scheduleSchema } from "agents/schedule";
 import { getUserTweets as fetchUserTweets, postTweet } from "./twitter-api";
 
+type TweetSummary = {
+  id: string;
+  text: string;
+  created_at: string;
+  likes: number;
+  retweets: number;
+  replies: number;
+};
+
+type TweetRow = {
+  id?: string;
+  text?: string;
+  created_at?: string;
+  public_metrics?: {
+    like_count?: number;
+    retweet_count?: number;
+    reply_count?: number;
+  };
+};
+
 /**
  * Tweet composition tool that requires human confirmation
  * When invoked, this will present a confirmation dialog to the user
  * The actual implementation is in the executions object below
  */
 const composeTweet = tool({
-  description: "compose and post a tweet to Twitter",
-  parameters: z.object({ 
+  description:
+    "compose and post a tweet to Twitter or the configured Xquik backend",
+  parameters: z.object({
     content: z.string().max(280, "Tweet content must be 280 characters or less")
   })
   // Omitting execute function makes this tool require human confirmation
@@ -30,14 +51,19 @@ const composeTweet = tool({
  */
 const getUserTweets = tool({
   description: "get the user's recent tweets from their timeline",
-  parameters: z.object({ 
-    count: z.number().min(1).max(10).default(5).describe("Number of tweets to retrieve (1-10)")
+  parameters: z.object({
+    count: z
+      .number()
+      .min(1)
+      .max(10)
+      .default(5)
+      .describe("Number of tweets to retrieve (1-10)")
   }),
   execute: async ({ count }) => {
     console.log(`Getting ${count} recent tweets`);
-    
-    const result = await fetchUserTweets('252099921', count);
-    
+
+    const result = await fetchUserTweets("252099921", count);
+
     if (!result.success) {
       return { error: result.error };
     }
@@ -46,10 +72,10 @@ const getUserTweets = tool({
       return { message: "No recent tweets found." };
     }
 
-    const tweets = result.data.data.map((tweet: any) => ({
-      id: tweet.id,
-      text: tweet.text,
-      created_at: tweet.created_at,
+    const tweets: TweetSummary[] = result.data.data.map((tweet: TweetRow) => ({
+      id: tweet.id || "",
+      text: tweet.text || "",
+      created_at: tweet.created_at || "",
       likes: tweet.public_metrics?.like_count || 0,
       retweets: tweet.public_metrics?.retweet_count || 0,
       replies: tweet.public_metrics?.reply_count || 0
@@ -57,9 +83,9 @@ const getUserTweets = tool({
 
     // Return structured data for generative UI
     return {
-      type: 'tweets',
+      type: "tweets",
       count: tweets.length,
-      tweets: tweets.map(tweet => ({
+      tweets: tweets.map((tweet) => ({
         id: tweet.id,
         text: tweet.text,
         created_at: tweet.created_at,
@@ -169,13 +195,16 @@ export const tools = {
 export const executions = {
   composeTweet: async ({ content }: { content: string }) => {
     console.log(`Posting tweet: ${content}`);
-    
+
     const result = await postTweet(content);
-    
+
     if (!result.success) {
       return `❌ Error posting tweet: ${result.error}`;
     }
 
-    return `✅ Tweet posted successfully!\n\nTweet ID: ${result.data.data.id}\nContent: "${content}"\n\nYou can view it at: https://twitter.com/fayazara/status/${result.data.data.id}`;
+    const tweetLine = result.tweetId ? `\n\nTweet ID: ${result.tweetId}` : "";
+    const urlLine = result.url ? `\n\nYou can view it at: ${result.url}` : "";
+
+    return `✅ Tweet posted successfully!${tweetLine}\nContent: "${content}"${urlLine}`;
   }
 };
